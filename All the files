@@ -1,1 +1,134 @@
+import pygame as pg
+import time
+import random
+import sys
+from ZiyadsLib import Samurai_Video
+height, width = 1000, 1300
+option_selected = False
+screen_selectionSamurai = pg.Rect(100,435, 360,60)
+screen_selectionSamurai = pg.Rect(100,435, 360,60)
+sys.setrecursionlimit(5000)
+pg.init()
+gameScreen = pg.display.set_mode((width,height))
+br = pg.transform.scale(pg.image.load("images.jpg"), (width,height))
+pg.display.set_caption("I the samurai")
+font = pg.font.SysFont("Comic_sans", 100)
+font2 = pg.font.SysFont("Comic_sans", 60)
+font3 = pg.font.SysFont("Comic_sans", 40)
+font4 = pg.font.SysFont("impact", 20)
+font5 = pg.font.SysFont("impact", 20)
+selection_rect = pg.Rect(450,435, 360,60)
+selection_rect2 = pg.Rect(1500,435, 150,60)
+SAMWA1 = pg.image.load("SAMWA1.png")
+ENEMY_PICTURE = pg.transform.scale2x(pg.image.load("enemy.png"))
+SB1 = pg.transform.scale(pg.image.load("SpeechBubble.png"),(400,90))
+SB2 = pg.transform.scale(pg.image.load("SpeechBubble.png"),(290,70))
+SB3 = pg.transform.flip(pg.transform.scale(pg.image.load("SpeechBubble.png"),(290,70)), flip_y=0, flip_x=1)
+EV1 = Samurai_Video("enemy-1.mp4")
+EV1.set_size((400, 400))
+def play_enemy(play_vid):
+        if play_vid==True:
+            EV1.draw(br, (300,300))
+        else:
+            return
+def graphics():
+    global br
+    global option_selected
+    if option_selected == False:
+        gameScreen.blit(br, (0,0))
+        pg.draw.rect(gameScreen, "black", selection_rect)
+        pg.draw.rect(gameScreen, "black", selection_rect2)
+        Selection_text = font.render("Press Play to Start", 1, "maroon")
+        Samurai_text = font2.render("Play", 1, "red")
+        Description_text = font3.render("Samurai Would Do Anything To defend their Shogun," , 1, "brown")
+        Description_textl2 = font3.render(" Failing to do so would result in the act of ritual sucide" , 1 , "brown")
+        Description_textl3 = font3.render("and or the inability to be happy due to", 1 ,"brown")
+        Description_textl4 = font3.render("shame as instructed by the code of bushido", 1, "brown")
+        Description_textl5 = font3.render("Some samurai had no lord or masters, theese", 1, "brown")
+        Description_textl6 = font3.render("mercanaries where known as ronin", 1, "brown") 
+        Fighting_text_descriptionl1 = font3.render("Samurai often fought in open" , 1, "brown")
+        Fighting_text_descriptionl2 = font3.render("places as necesarry" , 1, "brown")
+        SST1l1 = font4.render("Now Where is My honorable", 1 , "black")
+        SST1l2 = font4.render("shogun, Mutsu Shinto?", 1 , "black")
+        SST2L1 = font4.render("OH no! I must save him!", 1, "black")
+        SST3L1 = font4.render("I will kill you to protect", 1, "green")
+        SST3L2 = font4.render("the shogun as necesarry", 1, "green")
+        SHOTL1 = font4.render( "        I, Ronin of late Japan", 1, "black")
+        SHOTL2 = font4.render("         Will kill you", 1, "black")
+        ROTL1 = font4.render("     I Mitsu Shinto", 1, "black")
+        ROTL2 = font4.render("     will kill you", 1, "black")
+        gameScreen.blit(Selection_text, (200,40))
+        gameScreen.blit(Samurai_text, (590,420))
+        pg.display.update()
+    for event in pg.event.get():
+        if event.type == pg.MOUSEBUTTONDOWN:
+            pos = pg.mouse.get_pos()
+            if selection_rect.collidepoint(pos):
+                option_selected=True
+                if option_selected == True:
+                    # BEGINING SCENE ASKS WHERE SAMURAI IS ASKING WHERE SHOGUN IS 
+                    print("23e")
+                    br = pg.transform.scale(pg.image.load("download-1.jpg"), (width,height)) 
+                    gameScreen.blit(br, (0,0))
+                    gameScreen.blit(SAMWA1, (440,470))
+                    gameScreen.blit(Description_text, (230,80))
+                    gameScreen.blit(Description_textl2, (230,110))
+                    gameScreen.blit(Description_textl3, (230,140))
+                    gameScreen.blit(Description_textl4, (230,170))
+                    pg.display.update()
+                    time.sleep(2)
+                    gameScreen.fill("black")
+                    br = pg.transform.scale(pg.image.load("download-1.jpg"), (width,height)) 
+                    gameScreen.blit(br, (0,0))
+                    gameScreen.blit(SAMWA1, (440,470))
+                    gameScreen.blit(SB1, ((440+50+200),(440+200-130)))
+                    gameScreen.blit(SST1l1, ((440+50+20+270),(440+200-120)))
+                    gameScreen.blit(SST1l2, ((440+50+20+270),(440+200-120+15)))
+                    pg.display.update()
+                    # SEES SHOGUN FIGHTING RONIN
+                    time.sleep(2.5)
+                    gameScreen.fill("black")
+                    br = pg.transform.scale(pg.image.load("qw.jpg"), (width,height)) 
+                    gameScreen.blit(br, (0,0))
+                    gameScreen.blit(Description_textl5, (230,50))
+                    gameScreen.blit(Description_textl6, (230,80))
+                    time.sleep(2)
+                    pg.display.update()
+                    gameScreen.blit(SB2, (((75*4)+50),(80*4)))
+                    gameScreen.blit(SB2, (((75*4)+50),(80*4)))
+                    gameScreen.blit(SHOTL1, (((75*4)+50+25), (80*4+15)))
+                    gameScreen.blit(SHOTL2, (((75*4)+50+25), (80*4+28)))
+                    time.sleep(3)
+                    pg.display.update()
+                    gameScreen.blit(ROTL1, (((75*4)+50+25)*2, (80*4+50)))
+                    gameScreen.blit(ROTL2, (((75*4)+50+25)*2, (80*4+70)))
+                    gameScreen.blit(SB3, (((75*4)+50)*2,(80*4)+40))
+                    pg.display.update()
+                    br = pg.transform.scale(pg.image.load("download-1.jpg"), (width,height)) 
+                    gameScreen.blit(br, (0,0))
+                    gameScreen.blit(SAMWA1, (440,470))
+                    gameScreen.blit(SB1, ((440+50+200),(440+200-130)))
+                    gameScreen.blit(SST2L1, ((440+50+20+270),(440+200-120)))
+                    pg.display.update()
+                    time.sleep(3)
+                    br = pg.transform.scale(pg.image.load("download copy.jpg"), (width,height)) 
+                    gameScreen.blit(br, (0,0))
+                    gameScreen.blit(Fighting_text_descriptionl1, (230*1.67,140/2))
+                    gameScreen.blit(Fighting_text_descriptionl2, (230*1.67,(170/2)+15))
+                    gameScreen.blit(SAMWA1, (440,420))
+                    gameScreen.blit(SB1, ((440+50+200),(440+200-160)))
+                    gameScreen.blit(SST3L1, ((440+50+20+270),(440+200-150)))
+                    gameScreen.blit(SST3L2, ((440+50+20+270),(440+200-120)))
+                    gameScreen.blit(ENEMY_PICTURE, ((440+50+100),(440+200+15)))
+                    pg.display.update()
 
+
+
+        
+
+def main():
+     run = True
+     while run:
+        graphics()
+if __name__ == "__main__" :
+    main()
